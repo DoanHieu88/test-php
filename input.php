@@ -30,17 +30,16 @@
             $s_id = $_POST['id'];
         }
 
-        if($s_id != ''){
-            //câu lệnh update
-            $sql = "UPDATE student set fullname = '$s_fullname', codeStudent = '$s_codeStudent', class = '$s_class', address = '$s_address', gender = '$s_gender' where id =  ".$s_id;
+        if ($s_id != '') {  
+            //update
+            $sql = "update student set fullname = '$s_fullname', codeStudent = '$s_codeStudent', class = '$s_class', address = '$s_address', gender = '$s_gender' where id = " .$s_id;
         }else{
             //câu lệnh insert
             $sql = "insert into student(fullname, codeStudent, class, address, gender) value(' $s_fullname', '$s_codeStudent', '$s_class', '$s_address', '$s_gender')";
         }
 
-
         execute($sql);
-
+              
         // chuyển về trang index
         header('location: index.php');
         die();
@@ -48,16 +47,16 @@
 
     $id = '';   
     if(isset($_GET['id'])) {
-        $id = $_GET['id'];
-        $sql = 'select * from student where id = ' .$id;
+        $id          = $_GET['id'];
+        $sql         = 'select * from student where id = ' .$id;
         $studentList = executeResult($sql);
         if($studentList != null && count($studentList) > 0) {
-            $std = $studentList[0];
-            $s_fullname = $std['fullname'];
-            $s_codeStudent = $std['codeStudent'];
-            $s_class = $std['class'];
-            $s_address = $std['address'];
-            $s_gender = $std['gender'];
+            $std            = $studentList[0];
+            $s_fullname     = $std['fullname'];
+            $s_codeStudent  = $std['codeStudent'];
+            $s_class        = $std['class'];
+            $s_address      = $std['address'];
+            $s_gender       = $std['gender'];
         } else{
             $id = '';
         }

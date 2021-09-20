@@ -46,7 +46,7 @@
                             <td>'.$std['address'].'</td>
                             <td>'.$std['gender'].'</td>
                             <td><button class="btn btn-warning" onclick=\' window.open("input.php?id='.$std['id'].'", "_self")\'>Sửa</button></td>
-                            <td><button class="btn btn-danger">Xóa</button></td>
+                            <td><button class="btn btn-danger" onclick="deleteStudent('.$std['id'].')">Xóa</button></td>
                     </tr>';
     }
 ?>
@@ -57,6 +57,23 @@
         </div>
     </div>
 
+<script type="text/javascript">
+   function deleteStudent(id) {
+			option = confirm('Bạn có muốn xoá sinh viên này không')
+			if(!option) {
+				return;
+			}
+
+			console.log(id)
+			$.post('delete_student.php', {
+				'id': id
+			}, function(data) {
+				alert(data)
+				location.reload()
+			})
+		}
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
