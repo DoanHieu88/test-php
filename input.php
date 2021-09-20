@@ -4,9 +4,10 @@
   $s_fullname = $s_codeStudent = $s_class = $s_address = $s_gender = '';
 
     if(!empty($_POST)) {
+        $s_id = "";
 
-        if(isset($_POST['fullname'])) {
-            $s_fullname = $_POST['fullname'];
+        if(isset($_POST['fullname'])) {  // => nếu có trường full name thì 
+            $s_fullname = $_POST['fullname']; // post lên sever 
         }
 
         if(isset($_POST['codeStudent'])) {
@@ -25,10 +26,22 @@
             $s_gender = $_POST['gender'];
         }
 
-        $sql = "insert into student(fullname, codeStudent, class, address, gender) value(' $s_fullname', '$s_codeStudent', '$s_class', '$s_address', '$s_gender')";
+        if(isset($_POST['id'])) {
+            $s_id = $_POST['id'];
+        }
+
+        if($s_id != ''){
+            //câu lệnh update
+            $sql = "UPDATE student set fullname = '$s_fullname', codeStudent = '$s_codeStudent', class = '$s_class', address = '$s_address', gender = '$s_gender' where id =  ".$s_id;
+        }else{
+            //câu lệnh insert
+            $sql = "insert into student(fullname, codeStudent, class, address, gender) value(' $s_fullname', '$s_codeStudent', '$s_class', '$s_address', '$s_gender')";
+        }
+
 
         execute($sql);
 
+        // chuyển về trang index
         header('location: index.php');
         die();
     }
@@ -77,6 +90,7 @@
                 <form method="post" >
                     <div class="form-group">
                         <label for="usr">Họ & tên</label>
+                        <input type="number" value="<?=$id?>" style="display:none;">
                         <input required="true" type="text" class="form-control" id="usr" name='fullname' value ="<?=$s_fullname?>">
                     </div>
                     <div class="form-group">
